@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/softwarearchitecture?serverTimezone=UTC</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">123123</property>
+
+        <!--相关的属性-->
+        <property name="hbm2ddl.auto">update</property>
+        <!--格式化控制台显示的MySQL语句-->
+        <property name="format_sql">false</property>
+        <!--在控制台显示执行的MySQL语句-->
+        <property name="show_sql">false</property>
+        <!--使用MySQL数据库的方言-->
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+        <mapping class="com.example.demo.domains.Book" />
+        <mapping class="com.example.demo.domains.Admin" />
+        <mapping class="com.example.demo.domains.Student" />
+        <mapping class="com.example.demo.domains.Teacher" />
+        <mapping class="com.example.demo.domains.User" />
+        <mapping class="com.example.demo.domains.Record" />
+        <mapping class="com.example.demo.domains.Message" />
+        <mapping class="com.example.demo.domains.Book" />
+        <mapping class="com.example.demo.domains.PostGraduate"/>
+
+    </session-factory>
+</hibernate-configuration>
