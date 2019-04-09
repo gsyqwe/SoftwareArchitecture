@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myCtrl">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>任务详情</title>
+
+		<!--JQuery-->
+		<script src="sss/js/jquery.min.js"></script>
+		<!--AngularJS-->
+		<script src="sss/js/angular.min.js"></script>
+		<!--layer-->
+		<script src="sss/layer/layer.js"></script>
+
+		<!--layUI-->
+		<link rel="stylesheet" href="sss/layui/css/layui.css" media="all">
+		<script src="sss/layui/layui.js"></script>
+
+		<!--base64-->
+		<script src="js/base64.js"></script>
+
+		<script src="sss/myJS.js"></script>
+		<link rel="stylesheet" href="sss/myCss.css">
+		<style>
+			.rstrtCard {
+				border: solid;
+				border-width: 1px;
+				border-color: #cccccc;
+				background-color: white;
+				padding: 2px;
+				min-width: 200px
+			}
+		</style>
+		<!--百度地图-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2Z4ue91NYlE6n2OZWFdqGjqYUQFdhff7"></script>
+
+	</head>
+
+	<div ng-include="'include/headNav.html'"></div>
+
+	<body class="layui-row">
+		<br /> <br />
+		<div>
+			<div class="rstrtCard layui-col-md10 layui-col-md-offset1" style="padding: 20px;">
+				<br /> <br />
+				<table class="layui-table" lay-skin="nob">
+					<style>
+						strong {
+							float: right;
+							padding-right: 10px;
+							font-size: 23px;
+						}
+						
+						ffe {
+							font-size: 22px;
+							color: red;
+						}
+					</style>
+					<colgroup>
+						<col width="250">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr>
+							<td><strong>任务概述:</strong></td>
+							<td>{{missioninfo["name"]}}</td>
+						</tr>
+						<tr>
+							<td><strong>类型:</strong></td>
+							<td>
+								<span class="layui-badge layui-bg-cyan" ng-show='missioninfo["typeTime"]'>{{missioninfo["name"]}}</span> &nbsp;
+								<span class="layui-badge layui-bg-blue" ng-show='missioninfo["typeCQ"]'>长期</span> &nbsp;
+								<span class="layui-badge layui-bg-red" ng-show='missioninfo["typeJQ"]'>急缺</span> &nbsp;
+								<span class="layui-badge layui-bg-red" ng-show='missioninfo["typeDR"]'>多人</span> &nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td><strong>报酬:</strong></td>
+							<td>
+								<ffe>{{missioninfo["priceMin"]}}-{{missioninfo["priceMax"]}}</ffe>
+							</td>
+						</tr>
+
+						<tr>
+							<td><strong>详细描述:</strong></td>
+							<td>{{missioninfo["des"]}}</td>
+						</tr>
+						<tr>
+							<td><strong>发布时间:</strong></td>
+							<td>{{missioninfo["createTime"]}}</td>
+						</tr>
+						<tr>
+							<td><strong>发布人:</strong></td>
+							<td>
+								{{missioninfo["createUser"]}}
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								&nbsp;
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								<span class="layui-btn">领取任务</span> &nbsp;
+								<span class="layui-btn layui-btn-danger">举报任务</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<script>
+					//Demo
+					layui.use('form', function() {
+						var form = layui.form;
+						form.on('submit(formDemo)', function(data) {
+							var tt = 1;
+							var tt = Base64.encode(JSON.stringify(data));
+
+							console.log(tt)
+							window.location = "index.html?data=" + tt;
+							return false;
+						});
+					});
+				</script>
+
+			</div>
+			<div class="layui-col-md1">
+				&nbsp;
+			</div>
+		</div>
+	</body>
+	<script>
+		function jump(s) {
+			window.location = s
+		}
+
+		layui.use('element', function() {
+			var element = layui.element;
+
+			//…
+		});
+		layui.use('carousel', function() {
+			var carousel = layui.carousel;
+			//建造实例
+			carousel.render({
+				elem: '#test1',
+				width: '100%' //设置容器宽度
+					,
+				arrow: 'always' //始终显示箭头
+					,
+				interval: 2000
+				//,anim: 'updown' //切换动画方式
+			});
+		});
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+			var req=GetRequest()["data"];
+			var data1=$.parseJSON( Base64.decode(req) );
+			var missionii=data1.field;
+			console.log()
+			$scope.missioninfo = {
+				"name": missionii.title,
+				"priceMin": missionii.price_min,
+				"priceMax": missionii.price_max,
+				"type": missionii.zl,
+				"typeTime": true,
+				"typeCQ": true,
+				"typeJQ": true,
+				"typeDR": false,
+				"des": missionii.desc,
+				"createTime": "2019-03-28",
+				"createUser": "用户83177",
+			}
+//			$scope.missioninfo = {
+//				"name": "在我不在家的5天里，能帮我喂猫",
+//				"priceMin": 1000,
+//				"priceMax": 2000,
+//				"typeTime": true,
+//				"typeCQ": true,
+//				"typeJQ": true,
+//				"typeDR": false,
+//				"des": "我家住在富贵小区附近，详情可以拨打我电话191919191919 详谈，最好有养宠物经验。能够在我不在家的时候帮助我喂猫",
+//				"createTime": "2019-03-20 23:00",
+//				"createUser": "用户83177",
+//			}
+//			$scope.missioninfo = req
+			$scope.tempX = 0;
+			$scope.tempY = 0;
+
+			//			var geolocation = new BMap.Geolocation();
+			//			geolocation.getCurrentPosition(function(r) {
+			//				if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+			//					var mk = new BMap.Marker(r.point);
+			//
+			//					//						alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+			//					layer.alert("您的位置" + r.point.lng + ", " + r.point.lat)
+			//
+			//				} else {
+			//					alert('无法定位，请刷新重试！ ' + this.getStatus());
+			//				}
+			//			}, {
+			//				enableHighAccuracy: true
+			//			})
+
+		})
+	</script>
+
+</html>

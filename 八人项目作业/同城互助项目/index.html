@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myCtrl">
+
+	<head>
+		<meta charset="utf-8" />
+		<title>同城互助项目</title>
+		<!--JQuery-->
+		<script src="sss/js/jquery.min.js"></script>
+		<!--AngularJS-->
+		<script src="sss/js/angular.min.js"></script>
+
+		<!--layer-->
+		<script src="sss/layer/layer.js"></script>
+
+		<!--layUI-->
+		<link rel="stylesheet" href="sss/layui/css/layui.css" media="all">
+		<script src="sss/layui/layui.js"></script>
+
+		<script src="sss/myJS.js"></script>
+		<link rel="stylesheet" href="sss/myCss.css">
+	</head>
+	<div ng-include="'include/headNav.html'"></div>
+	<!--<div ng-include="'include/leftNav.html'"></div>-->
+
+	<body>
+		<br /><br /><br />
+		<div>
+			<div class="layui-col-md4 layui-col-md-offset4">
+				<div class="layui-card ">
+					<div class="layui-card-header ">
+						登录
+					</div>
+					<div class="layui-card-body ">
+						<div class="layui-form-item">
+							<label class="layui-form-label">账号</label>
+							<div class="layui-input-block">
+								<input type="text" ng-model="uname" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">密码</label>
+							<div class="layui-input-inline">
+								<input type="password" ng-model="psw" class="layui-input">
+							</div>
+
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-input-block">
+								<button class="layui-btn" ng-click="tryLogin()">确认登入</button>
+								<a href="\toRegisterPage">立即注册</a>
+								<br />
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="layui-col-md4">
+				&nbsp;
+			</div>
+		</div>
+	</body>
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+			$scope.tryLogin = function() {
+				window.location = "UserCenter.html"
+			}
+		})
+	</script>
+
+</html>

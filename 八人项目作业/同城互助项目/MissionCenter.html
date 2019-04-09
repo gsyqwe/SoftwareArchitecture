@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myCtrl">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>任务广场</title>
+
+		<!--JQuery-->
+		<script src="sss/js/jquery.min.js"></script>
+		<!--AngularJS-->
+		<script src="sss/js/angular.min.js"></script>
+
+		<!--layer-->
+		<script src="sss/layer/layer.js"></script>
+
+		<!--layUI-->
+		<link rel="stylesheet" href="sss/layui/css/layui.css" media="all">
+		<script src="sss/layui/layui.js"></script>
+
+		<script src="sss/myJS.js"></script>
+		<link rel="stylesheet" href="sss/myCss.css">
+
+		<!--百度地图-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2Z4ue91NYlE6n2OZWFdqGjqYUQFdhff7"></script>
+
+		</div>
+		<style>
+			.rstrtCard {
+				border: solid;
+				border-width: 1px;
+				border-color: #cccccc;
+				background-color: white;
+				padding: 2px;
+				min-width: 200px
+			}
+		</style>
+
+	</head>
+
+	<div ng-include="'include/headNav.html'"></div>
+
+	<body class="layui-row">
+
+		<div>
+			<div class="layui-col-md10 layui-col-md-offset1">
+				<div>
+					<span style="font-size: 32px;">您的位置	:&nbsp;</span>
+
+					<span id="rx" style="font-size: 22px;">
+						1
+					</span> 
+				</div>
+				<br />
+				<h3>
+					附近任务：
+				</h3>
+				<br />
+				<div class="layui-row ">
+
+					<!--	<div class="layui-col-md4 rstrtCard">商家</div>-->
+					<div class="layui-col-md4 " style="padding:4px;" ng-repeat="x in rsrtList">
+						<div class="rstrtCard layui-row " style="position: relative;">
+							<div class="layui-col-md3 ">
+								<img src="{{x['icon']}}" width="90px" height="90px" />
+							</div>
+							<div class="layui-col-md8  ">
+								<p><strong>{{x['name']}}</strong></p>
+								<p>{{x['des']}}</p>
+								</p>
+
+							</div>
+							<p style="position: absolute;left: 115px;bottom: 5px;">
+								<a href="{{x['url']}}" style="color: gray;">{{"距离 "+x['distance']+" 米"}}</a>
+							</p>
+							<p style="position: absolute;right: 10px;bottom: 5px;">
+								<a href="{{x['url']}}" style="color: cornflowerblue;">立即前往</a>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+			<div class="layui-col-md1">
+				&nbsp;
+			</div>
+		</div>
+	</body>
+	<script>
+		function jump(s) {
+			window.location = s
+		}
+		layui.use('element', function() {
+			var element = layui.element;
+
+			//…
+		});
+
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+			$scope.rsrtList = [{
+					'icon': "https://i.loli.net/2019/03/26/5c99916d649aa.png",
+					"name": "大头",
+					"des": "希望有人帮我喂猫",
+					"distance": 0,
+					"url": "OneMission.html"
+				}, {
+					'icon': "https://i.loli.net/2019/03/26/5c99916d649aa.png",
+					"name": "林俊杰",
+					"des": "明天去医院检查，希望有个人一起陪我检查",
+					"distance": 0,
+					"url": "OneMission.html"
+				}, {
+					'icon': "https://i.loli.net/2019/03/26/5c99916d649aa.png",
+					"name": "小头爸爸",
+					"des": "每周五下午求一个人帮我辅导儿子作业，要求普通话标准，最好英语好",
+					"distance": 0,
+					"url": "OneMission.html"
+				}
+
+			]
+			$scope.tempX = 0;
+			$scope.tempY = 0;
+
+			document.getElementById('baiduMap').style.display = "block"
+			layer.open({
+				type: 1,
+				id: 314,
+				title: "位置选择",
+				area: ['650px', '650px'],
+				shade: 0.1,
+				resize: true,
+				offset: 'auto',
+				content: $('#baiduMap'),
+				success: function(layero, index) {
+					var map = new BMap.Map("baiduMap");
+					var point = new BMap.Point(116.331398, 39.897445);
+					map.centerAndZoom(point, 12);
+
+					var geolocation = new BMap.Geolocation();
+					geolocation.getCurrentPosition(function(r) {
+						if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+							var mk = new BMap.Marker(r.point);
+							map.addOverlay(mk);
+							map.panTo(r.point);
+							console.log(r)
+							document.getElementById("rx").innerHTML=r.address.province+r.address.city+r.address.district+"    " + r.point.lng + ',' + r.point.lat;
+							alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+							$scope.tempX = r.point.lng;
+							$scope.tempY = r.point.lat;
+							layer.close(314)
+						} else {
+							alert('failed' + this.getStatus());
+						}
+					}, {
+						enableHighAccuracy: true
+					})
+				},
+				end: function() {
+					document.getElementById('baiduMap').style.display = "none"
+				}
+			});
+
+		})
+	</script>
+	<div class=" rstrtCard " id="baiduMap" style="display: none;width:600px;height:400px;padding: 20px; ">
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2Z4ue91NYlE6n2OZWFdqGjqYUQFdhff7"></script>
+		<div id="allmap"></div>
+		<script type="text/javascript">
+			// 百度地图API功能
+		</script>
+
+	</div>
+
+</html>

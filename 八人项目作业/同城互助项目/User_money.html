@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myCtrl">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的任务</title>
+
+		<!--JQuery-->
+		<script src="sss/js/jquery.min.js"></script>
+		<!--AngularJS-->
+		<script src="sss/js/angular.min.js"></script>
+
+		<!--layer-->
+		<script src="sss/layer/layer.js"></script>
+
+		<!--layUI-->
+		<link rel="stylesheet" href="sss/layui/css/layui.css" media="all">
+		<script src="sss/layui/layui.js"></script>
+
+		<script src="sss/myJS.js"></script>
+		<link rel="stylesheet" href="sss/myCss.css">
+
+		<!--百度地图-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2Z4ue91NYlE6n2OZWFdqGjqYUQFdhff7"></script>
+
+		</div>
+		<style>
+			html,
+			body {
+				background-color: white;
+			}
+			
+			.rstrtCard {
+				border: solid;
+				border-width: 1px;
+				border-color: #cccccc;
+				background-color: white;
+				padding: 2px;
+				min-width: 200px
+			}
+			
+			.card {
+				background-color: white;
+				padding: 22px;
+				margin: -35px 0 0 -58px;
+				animation: ani_jianbianchuxian 2s;
+			}
+			
+			.moneyArea {
+				padding: 0;
+				padding: 10px;
+				padding-left: 30px;
+				color: white;
+				background-color: #268EFE;
+				min-height: 150px;
+				max-height: 150px;
+			}
+		</style>
+
+	</head>
+
+	<div ng-include="'include/headNav.html'"></div>
+	<div ng-include="'include/leftNav.html'"></div>
+
+	<body class="layui-row">
+		<br /><br />
+		<div>
+			<div class="layui-col-md10 layui-col-md-offset2 layui-row">
+
+				<div class="card moneyArea">
+
+					<div style="float:left ;width:50%">
+						<div style="font-size: 18px;margin-top:20px">总资产(元):</div>
+						<div style="font-size: 68px;">1802.10</div>
+					</div>
+					<div style="float:right ;width:50%;text-align: right;"> <img src="sss/img/moneyBackground.png" height="100px" /></div>
+
+					<div style="clear: both;"></div>
+				</div>
+				<br /> <br />
+				<div class="card">
+					<br /> <br />
+					<div class="layui-btn" style="margin-left: 80%;">
+						<a href="/toRecharge" style='color: white;'> 立即充值</a>
+					</div>
+					<div class="layui-btn" style="margin-left: 1%;">
+						<a href="/toWithdraw" style='color: white;'> 立即提现</a>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+				<div class="card">
+					<div style="width:96%;color: #888888;margin: 0 2%;">
+						<br /> <br /> <br />
+						<div id="step1_tip" class="rightTipDiv" style="text-align: left;">
+							<p style="margin-left: -9px;"><strong>涉及资产的免责声明：</strong></p>
+							<p style="margin-left: 5px;">1.本站资金仅限用于本站的发布任务使用，不可挪作其他用途</p>
+							<p style="margin-left: 5px;">2.所有资金以上述实际显示数额为准，不提供遗失补偿</p>
+							<p style="margin-left: 5px;">3.因网络波动、网站漏洞造成的资金问题，本站不承担责任，不负责解决</p>
+							<p style="margin-left: 5px;">4.因提现操作造成的资金问题由用户负责</p>
+							<br />
+
+						</div>
+
+						<div style="float:right">
+							<a href="http://nvidia.njuftp.org/images/9ccc9d95-582a-4df3-9f92-a583b7bc98db.png">更多帮助...</a>
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+			<div class="layui-col-md2">
+				&nbsp;
+			</div>
+		</div>
+	</body>
+	<script>
+		layui.use('element', function() {
+			var element = layui.element;
+
+			//…
+		});
+		layui.use('carousel', function() {
+			var carousel = layui.carousel;
+			//建造实例
+			carousel.render({
+				elem: '#test1',
+				width: '100%' //设置容器宽度
+					,
+				arrow: 'always' //始终显示箭头
+					,
+				interval: 2000
+				//,anim: 'updown' //切换动画方式
+			});
+		});
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+			$scope.missionList = [{
+				"name": "照顾猫"
+			}, {
+				"name": "照顾猫"
+			}, {
+				"name": "照顾猫"
+			}, {
+				"name": "照顾猫"
+			}]
+			$scope.userinfo = {
+				"name": "chou",
+				"sex": "男",
+				"des": "全方位都擅长！",
+				"money": 99999.10,
+				"type": "高级钳工资格证、大学英语六级"
+
+			}
+			$scope.startEdit = function() {
+
+				if($scope.isEdit) {
+
+					layer.alert("修改失败！", {
+						time: 0 //不自动关闭
+							,
+						btn: ['确认'],
+						yes: function(index) {
+							location.reload()
+						}
+					});
+
+					$scope.isEdit = false;
+
+				} else {
+					$scope.isEdit = true;
+				}
+
+			}
+
+		})
+	</script>
+
+</html>

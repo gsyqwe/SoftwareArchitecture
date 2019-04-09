@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myCtrl">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的任务</title>
+
+		<!--JQuery-->
+		<script src="sss/js/jquery.min.js"></script>
+		<!--AngularJS-->
+		<script src="sss/js/angular.min.js"></script>
+
+		<!--layer-->
+		<script src="sss/layer/layer.js"></script>
+
+		<!--layUI-->
+		<link rel="stylesheet" href="sss/layui/css/layui.css" media="all">
+		<script src="sss/layui/layui.js"></script>
+
+		<script src="sss/myJS.js"></script>
+		<link rel="stylesheet" href="sss/myCss.css">
+
+		<!--百度地图-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2Z4ue91NYlE6n2OZWFdqGjqYUQFdhff7"></script>
+
+		</div>
+		<style>
+			html,
+			body {
+				background-color: white;
+			}
+			
+			.rstrtCard {
+				border: solid;
+				border-width: 1px;
+				border-color: #cccccc;
+				background-color: white;
+				padding: 2px;
+				min-width: 200px
+			}
+		</style>
+
+	</head>
+
+	<div ng-include="'include/headNav.html'"></div>
+	<div ng-include="'include/leftNav.html'"></div>
+
+	<body class="layui-row">
+		<br /><br />
+		<div>
+
+			<div class="layui-col-md8 layui-col-md-offset2 layui-row">
+				<h1>我的任务</h1>
+				<br /> <br />
+				<div class="layui-col-md10 " style="padding: 10px;">
+
+					<div class="rstrtCard layui-row" style="margin: 20px;" ng-repeat="x in missionList">
+						<div class="layui-col-md10 " style="padding: 10px;">
+							<div class="site-demo-tplres">
+								<h2 class="site-demo-tplh2">{{x['name']}}<span style="margin-left:30px;color: gray;font-size: 14px;">ID:100001</span></h2>
+								<div class="site-demo-tplview" id="view">
+
+									<ul>
+										<table class="layui-table" lay-size="sm" lay-skin="nob">
+											<style>
+												strong {
+													float: right;
+													padding-right: 10px;
+												}
+											</style>
+											<colgroup>
+												<col width="100">
+												<col>
+											</colgroup>
+											<tbody>
+												<tr>
+													<td><strong>任务概述:</strong></td>
+													<td>在我不在家的5天里，能帮我喂猫</td>
+												</tr>
+												<tr>
+													<td><strong>类型:</strong></td>
+													<td>
+														<span class="layui-badge layui-bg-cyan">时间类</span> &nbsp;
+														<span class="layui-badge layui-bg-blue">长期</span> &nbsp;
+														<span class="layui-badge layui-bg-red">急缺</span> &nbsp;
+													</td>
+												</tr>
+												<tr>
+													<td><strong>报酬:</strong></td>
+													<td>
+														<ffe>1100-2000</ffe>
+													</td>
+												</tr>
+
+												<tr>
+													<td><strong>详细描述:</strong></td>
+													<td>在我不在家的5天里，能帮我喂猫</td>
+												</tr>
+												<tr>
+													<td><strong>发布时间:</strong></td>
+													<td>2019-03-20 23:00</td>
+												</tr>
+												<tr>
+													<td><strong>状态:</strong></td>
+													<td>
+														已被领取
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+									</ul>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+				<div class="layui-col-md2" style="text-align: center;">
+					&nbsp;
+				</div>
+			</div>
+			<div class="layui-col-md2">
+				&nbsp;
+			</div>
+		</div>
+	</body>
+	<script>
+		createBackTopButton()
+		layui.use('element', function() {
+			var element = layui.element;
+
+			//…
+		});
+		layui.use('carousel', function() {
+			var carousel = layui.carousel;
+			//建造实例
+			carousel.render({
+				elem: '#test1',
+				width: '100%' //设置容器宽度
+					,
+				arrow: 'always' //始终显示箭头
+					,
+				interval: 2000
+				//,anim: 'updown' //切换动画方式
+			});
+		});
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+			$scope.missionList = [{
+				"name": "照顾猫"
+			}, {
+				"name": "照顾猫"
+			}, {
+				"name": "照顾猫"
+			}, {
+				"name": "照顾猫"
+			}]
+			$scope.userinfo = {
+				"name": "chou",
+				"sex": "男",
+				"des": "全方位都擅长！",
+				"money": 99999.10,
+				"type": "高级钳工资格证、大学英语六级"
+
+			}
+			$scope.startEdit = function() {
+
+				if($scope.isEdit) {
+
+					layer.alert("修改失败！", {
+						time: 0 //不自动关闭
+							,
+						btn: ['确认'],
+						yes: function(index) {
+							location.reload()
+						}
+					});
+
+					$scope.isEdit = false;
+
+				} else {
+					$scope.isEdit = true;
+				}
+
+			}
+
+		})
+	</script>
+
+</html>

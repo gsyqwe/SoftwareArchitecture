@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myCtrl">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户注册</title>
+
+		<!--JQuery-->
+		<script src="sss/js/jquery.min.js"></script>
+		<!--AngularJS-->
+		<script src="sss/js/angular.min.js"></script>
+
+		<!--layer-->
+		<script src="sss/layer/layer.js"></script>
+
+		<!--layUI-->
+		<link rel="stylesheet" href="sss/layui/css/layui.css" media="all">
+		<script src="sss/layui/layui.js"></script>
+
+		<script src="sss/myJS.js"></script>
+		<link rel="stylesheet" href="sss/myCss.css">
+	</head>
+
+	<body class="layui-row">
+		<br /><br /><br />
+		<div>
+			<div class="layui-col-md10 layui-col-md-offset1">
+				<div class="layui-card ">
+					<div class="layui-card-header ">
+						用户注册
+					</div>
+					<div class="layui-card-body layui-row " style="padding: 30px;">
+						<div class=" layui-col-md6  ">
+
+							<div class="layui-form-item">
+								<label class="layui-form-label">邮箱号*</label>
+								<div class="layui-input-block">
+									<input type="text" ng-model="email" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">密码*</label>
+								<div class="layui-input-inline">
+									<input type="password" ng-model="psw" class="layui-input">
+								</div>
+
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">确认密码*</label>
+								<div class="layui-input-inline">
+									<input type="password" ng-model="repsw" class="layui-input">
+								</div>
+
+							</div>
+							<label class="layui-form-label">昵称*</label>
+							<div class="layui-input-inline">
+								<input type="password" ng-model="name" class="layui-input">
+							</div>
+
+						</div>
+						<br />
+						<hr/><br />
+						<div class="layui-form-item">
+							<div class="layui-input-block">
+								<button class="layui-btn" ng-click="tryRegister()">确认注册</button>
+
+							</div>
+						</div>
+
+					</div>
+					<div class=" layui-col-md6  ">
+
+						&nbsp;
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="layui-col-md4">
+			&nbsp;
+		</div>
+		</div>
+	</body>
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+			$scope.email = ""
+			$scope.psw = ""
+			$scope.repsw = ""
+			$scope.name = ""
+			$scope.tryRegister = function() {
+				var form = new FormData();
+				form.append("email", $scope.email)
+				form.append("psw", $scope.psw)
+				form.append("name", $scope.name)
+
+				$.ajaxSetup({
+					async: false
+				});
+				$.ajax({
+					url: '/tryRegisterUser',
+					type: "POST",
+					data: form,
+					processData: false,
+					contentType: false,
+					success: function(data, status) {
+						if(data["isSuccess"]) {
+							window.location = data["nextPage"]
+						} else {
+							layer.alert(data["message"])
+						}
+					},
+					error: function(XMLHttpRequest, textStatus,
+						errorThrown) {
+						console.log(errorThrown);
+						layer.msg("网络错误！登录失败")
+					}
+				});
+				$.ajaxSetup({
+					async: true
+				});
+			}
+
+		})
+	</script>
+
+</html>

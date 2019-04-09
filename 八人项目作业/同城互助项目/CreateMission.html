@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myCtrl">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>发布一项任务</title>
+
+		<!--JQuery-->
+		<script src="sss/js/jquery.min.js"></script>
+		<!--AngularJS-->
+		<script src="sss/js/angular.min.js"></script>
+		<!--layer-->
+		<script src="sss/layer/layer.js"></script>
+
+		<!--layUI-->
+		<link rel="stylesheet" href="sss/layui/css/layui.css" media="all">
+		<script src="sss/layui/layui.js"></script>
+
+		<!--base64-->
+		<script src="js/base64.js"></script>
+
+		<script src="sss/myJS.js"></script>
+		<link rel="stylesheet" href="sss/myCss.css">
+		<style>
+			.rstrtCard {
+				border: solid;
+				border-width: 1px;
+				border-color: #cccccc;
+				background-color: white;
+				padding: 2px;
+				min-width: 200px
+			}
+		</style>
+		<!--百度地图-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2Z4ue91NYlE6n2OZWFdqGjqYUQFdhff7"></script>
+
+	</head>
+
+	<div ng-include="'include/headNav.html'"></div>
+
+	<body class="layui-row">
+		<br /> <br />
+		<div>
+			<div class="rstrtCard layui-col-md10 layui-col-md-offset1">
+				<br /> <br />
+				<form class="layui-form" action="">
+					<div class="layui-form-item">
+						<label class="layui-form-label">任务名称</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">价格范围</label>
+						<div class="layui-input-inline" style="width: 100px;">
+							<input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-mid">-</div>
+						<div class="layui-input-inline" style="width: 100px;">
+							<input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">任务类型</label>
+						<div class="layui-input-block">
+							<select name="zl" lay-verify="required">
+								<option value=""></option>
+								<option value="技能类">技能类</option>
+								<option value="跑腿类">跑腿类</option>
+								<option value="产品类">产品类</option>
+								<option value="时间类">时间类</option>
+								<option value="其他类">其他类</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">可选项</label>
+						<div class="layui-input-block">
+							<input type="checkbox" name="type[JQ]" title="急缺">
+							<input type="checkbox" name="type[DR]" title="多人" checked>
+							<input type="checkbox" name="type[CQ]" title="长期">
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">性别</label>
+						<div class="layui-input-block">
+							<input type="radio" name="sex" value="男" title="男">
+							<input type="radio" name="sex" value="女" title="女" checked>
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">详细描述</label>
+						<div class="layui-input-block">
+							<textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit lay-filter="formDemo">立即发布</button>
+						</div>
+					</div>
+				</form>
+
+				<script>
+					//Demo
+					layui.use('form', function() {
+						var form = layui.form;
+						form.on('submit(formDemo)', function(data) {
+							var tt = 1;
+							var tt = Base64.encode(JSON.stringify(data));
+
+							console.log(tt)
+							window.location = "OneMission.html?data=" + tt;
+							return false;
+						});
+					});
+				</script>
+
+			</div>
+			<div class="layui-col-md1">
+				&nbsp;
+			</div>
+		</div>
+	</body>
+	<script>
+		function jump(s) {
+			window.location = s
+		}
+		//		if("geolocation" in navigator) {
+		//			alert("地理位置服务可用 ")
+		//		} else {
+		//			/* 地理位置服务不可用 */
+		//		}
+		layui.use('element', function() {
+			var element = layui.element;
+
+			//…
+		});
+		layui.use('carousel', function() {
+			var carousel = layui.carousel;
+			//建造实例
+			carousel.render({
+				elem: '#test1',
+				width: '100%' //设置容器宽度
+					,
+				arrow: 'always' //始终显示箭头
+					,
+				interval: 2000
+				//,anim: 'updown' //切换动画方式
+			});
+		});
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+			$scope.rsrtList = [{
+					'icon': "https://i.loli.net/2019/03/26/5c99916d649aa.png",
+					"name": "林俊杰",
+					"des": "希望有人能帮我买校门口的宵夜",
+					"distance": 1000,
+					"url": "/a11"
+				}, {
+					'icon': "https://i.loli.net/2019/03/26/5c99916d649aa.png",
+					"name": "林俊杰",
+					"des": "明天去医院检查，希望有个人一起陪我检查",
+					"distance": 1000,
+					"url": "/a11"
+				}, {
+					'icon': "https://i.loli.net/2019/03/26/5c99916d649aa.png",
+					"name": "林俊杰",
+					"des": "每周五下午求一个人帮我辅导儿子作业，要求普通话标准，最好英语好",
+					"distance": 1000,
+					"url": "/a11"
+				}
+
+			]
+			$scope.tempX = 0;
+			$scope.tempY = 0;
+
+			//			var geolocation = new BMap.Geolocation();
+			//			geolocation.getCurrentPosition(function(r) {
+			//				if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+			//					var mk = new BMap.Marker(r.point);
+			//
+			//					//						alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+			//					layer.alert("您的位置" + r.point.lng + ", " + r.point.lat)
+			//
+			//				} else {
+			//					alert('无法定位，请刷新重试！ ' + this.getStatus());
+			//				}
+			//			}, {
+			//				enableHighAccuracy: true
+			//			})
+
+		})
+	</script>
+
+</html>

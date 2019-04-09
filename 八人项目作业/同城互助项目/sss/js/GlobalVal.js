@@ -1,0 +1,1 @@
+var navHeight = 0;

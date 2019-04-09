@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="myCtrl">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>个人中心</title>
+
+		<!--JQuery-->
+		<script src="sss/js/jquery.min.js"></script>
+		<!--AngularJS-->
+		<script src="sss/js/angular.min.js"></script>
+
+		<!--layer-->
+		<script src="sss/layer/layer.js"></script>
+
+		<!--layUI-->
+		<link rel="stylesheet" href="sss/layui/css/layui.css" media="all">
+		<script src="sss/layui/layui.js"></script>
+
+		<script src="sss/myJS.js"></script>
+		<link rel="stylesheet" href="sss/myCss.css">
+
+		<!--百度地图-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2Z4ue91NYlE6n2OZWFdqGjqYUQFdhff7"></script>
+
+		</div>
+		<style>
+			html,
+			body {
+				background-color: white;
+			}
+			
+			.rstrtCard {
+				border: solid;
+				border-width: 1px;
+				border-color: #cccccc;
+				background-color: white;
+				padding: 2px;
+				min-width: 200px
+			}
+		</style>
+
+	</head>
+
+	<div ng-include="'include/headNav.html'"></div>
+	<div ng-include="'include/leftNav.html'"></div>
+
+	<body class="layui-row">
+		<br /><br />
+		<div>
+
+			<div class="layui-col-md8 layui-col-md-offset2 layui-row">
+
+				<div class="layui-col-md10" style="padding: 10px;">
+					<div class="layui-row">
+
+						<p>
+							<h2>账户信息</h2>
+						</p>
+						<div class="layui-col-md10 ">
+							<hr class="layui-bg-blue">
+
+						</div>
+						<div class="layui-col-md9  layui-col-lg-offset1 ">
+							<table class="layui-table" lay-skin="nob">
+								<colgroup>
+									<col width="150">
+									<col>
+								</colgroup>
+								<tbody>
+									<tr>
+										<td>
+											<h3><strong>当前余额</strong></h3>
+										</td>
+										<td>
+											<span style="font-size: 25px;color: darkred;">{{userinfo['money']}} </span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<h3><strong>资质认证</strong></h3>
+										</td>
+										<td>
+											<span style="font-size: 19px;color: orangered;">
+												
+												{{userinfo['type']}}
+												
+											</span>
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					<br /> <br />
+
+					<div class="layui-row">
+
+						<p>
+							<h2>个人信息</h2>
+						</p>
+						<div class="layui-col-md10 ">
+							<hr class="layui-bg-blue">
+
+						</div>
+						<div class="layui-col-md9  layui-col-lg-offset1 ">
+							<table class="layui-table" lay-skin="nob">
+								<colgroup>
+									<col width="150">
+									<col>
+								</colgroup>
+								<tbody>
+									<tr>
+										<td> </td>
+										<td style="text-align: right;">
+											<span ng-show="!isEdit" class="layui-btn layui-btn-mini" ng-click="startEdit()">编辑</span>
+											<span ng-show="isEdit" class="layui-btn layui-btn-normal layui-btn-mini" ng-click="startEdit()">保存</span>
+
+										</td>
+									</tr>
+								</tbody>
+								<tbody>
+									<tr>
+										<td>
+											<h3><strong>姓名</strong></h3>
+
+										</td>
+										<td>
+											<span ng-show="!isEdit">{{userinfo['name']}} </span>
+											<input ng-show="isEdit" ng-model="userinfo['name']"></input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<h3><strong>擅长领域</strong></h3>
+										</td>
+										<td>
+											<span ng-show="!isEdit">{{userinfo['des']}} </span>
+											<input ng-show="isEdit" ng-model="userinfo['des']"></input>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<h3><strong>性别</strong></h3>
+
+										</td>
+										<td>
+											<span ng-show="!isEdit">{{userinfo['sex']}}</span>
+
+											<select name="city" lay-verify="" ng-show="isEdit" ng-model="userinfo['sex']">
+												<option value="男">男</option>
+												<option value="女">女</option>
+											</select>
+
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					<br /> <br /> <br /> <br />
+
+				</div>
+				<div class="layui-col-md2" style="text-align: center;">
+					<img height="220px" width="220px" src="img/headicon.png" />
+					<span class="layui-btn" style="margin-top: 15px;margin-left: 30px;">修改头像</span>
+				</div>
+			</div>
+			<div class="layui-col-md2">
+				&nbsp;
+			</div>
+		</div>
+	</body>
+	<script>
+		function jump(s) {
+			window.location = s
+		}
+		//		if("geolocation" in navigator) {
+		//			alert("地理位置服务可用 ")
+		//		} else {
+		//			/* 地理位置服务不可用 */
+		//		}
+		layui.use('element', function() {
+			var element = layui.element;
+
+			//…
+		});
+		layui.use('carousel', function() {
+			var carousel = layui.carousel;
+			//建造实例
+			carousel.render({
+				elem: '#test1',
+				width: '100%' //设置容器宽度
+					,
+				arrow: 'always' //始终显示箭头
+					,
+				interval: 2000
+				//,anim: 'updown' //切换动画方式
+			});
+		});
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+			$scope.userinfo={
+				"name":"chou",
+				"sex":"男",
+				"des":"全方位都擅长！",
+				"money":99999.10,
+				"type":"高级钳工资格证、大学英语六级"
+				
+			}
+			$scope.startEdit = function() {
+
+				if($scope.isEdit) {
+
+					layer.alert("修改失败！", {
+						time: 0 //不自动关闭
+							,
+						btn: ['确认'],
+						yes: function(index) {
+							location.reload()
+						}
+					});
+
+					$scope.isEdit = false;
+
+				} else {
+					$scope.isEdit = true;
+				}
+
+			}
+
+		})
+	</script>
+
+</html>

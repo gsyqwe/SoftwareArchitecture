@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<div th:fragment="commonHeader">
+
+		<!--JQuery-->
+		<script src="sss/js/jquery.min.js"></script>
+		<!--AngularJS-->
+		<script src="sss/js/angular.min.js"></script>
+
+		<!--layer-->
+		<script src="sss/layer/layer.js"></script>
+
+		<!--layUI-->
+		<link rel="stylesheet" href="sss/layui/css/layui.css" media="all">
+		<script src="sss/layui/layui.js"></script>
+
+	</div>
+	<ul th:fragment="UserTopNav" class="layui-nav " style="z-index: 9999;">
+
+		<li class="layui-nav-item ">
+			<a href="/toUserCenterPage"> 个人中心</a>
+			<dl class="layui-nav-child">
+
+				<dd>
+					<a href="/logout">退出登录</a>
+				</dd>
+			</dl>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/toMarketPage">主站</a>
+		</li>
+	</ul>
+	<ul th:fragment="UserLeftNav" class="layui-nav layui-nav-tree layui-nav-side " lay-filter="test">
+		<!--<br /><br /><br />-->
+
+		<li style="height:60px ;"></li>
+		<li class="layui-nav-item">
+			<a href="/toUserCenterPage">个人详情</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/toOrderListPage">订单列表</a>
+		</li>
+		<li class="layui-nav-item layui-nav-itemed">
+			<a href="/toHistoryViewPage">数据统计</a>
+
+		</li>
+
+	</ul>
+
+	<!--/-->
+	<!--/-->
+	<!--/-->
+
+	<ul th:fragment="AdminTopNav" class="layui-nav " style="z-index: 9999;">
+		<li class="layui-nav-item">
+			<a>管理员</a>
+		</li>
+	</ul>
+	<ul th:fragment="AdminLeftNav" class="layui-nav layui-nav-tree layui-nav-side " lay-filter="test">
+		<!--<br /><br /><br />-->
+
+		<li style="height:60px ;"></li>
+		<li class="layui-nav-item">
+			<a href="/toAdminCenterPage">yummy总览</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/toAdminApprovalPage">审批审核</a>
+		</li>
+	</ul>
+
+	<!--/-->
+	<!--/-->
+	<!--/-->
+
+	<ul th:fragment="RestaurantTopNav" class="layui-nav " style="z-index: 9999;">
+		<li class="layui-nav-item">
+			<a href="/toAdminCenterPage">店铺中心</a>
+		</li>
+	</ul>
+	<ul th:fragment="RestaurantLeftNav" class="layui-nav layui-nav-tree layui-nav-side " lay-filter="test">
+		<!--<br /><br /><br />-->
+
+		<li style="height:60px ;"></li>
+		<li class="layui-nav-item">
+			<a href="/toRestaurantCenterPage">店铺信息</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/toRestaurantFoodPage">食品管理</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/toRestaurantOederListPage">订单记录</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/toRestaurantViewPage">统计数据</a>
+		</li>
+	</ul>
+
+</html>

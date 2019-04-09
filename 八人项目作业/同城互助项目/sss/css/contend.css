@@ -1,0 +1,97 @@
+/*封装一些常用的css组件*/
+@charset "utf-8";
+
+.body-bg {
+    background: #f3f4f7;
+}
+
+body {
+    background: #FFF;
+    color: #303030;
+    font-size: 14px;
+}
+
+/*主体内容*/
+.content {
+    width: 700px;
+    margin: auto;
+    position: relative;
+    height: auto;
+    background-color: #FFFFFF;
+    border: 1px solid #cccccc;
+}
+
+.content:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+/*主体内容-左侧*/
+.content-left {
+    float: left;
+    width: 886px;
+    margin-top: 20px;
+}
+
+.content-left-tit {
+    display: block;
+    padding: 24px 0 10px 0;
+}
+
+.task-list {
+    background: #fff;
+    width: 700px;
+    margin-bottom: 30px;
+    overflow: auto;
+    padding-top: 10px;
+}
+
+
+.tab-div li {
+    float: left;
+    border: 1px solid #a6a6a6;
+    width: 126px;
+    line-height: 40px;
+    color: #b8b7b7;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.tab-div .current {
+    border: 1px solid #12b497;
+    background: #12b497;
+    color: #fff;
+}
+
+.task-list-sousuo-add {
+    margin: 20px 10px;
+    padding-bottom: 20px;
+}
+
+/*以下是任务详细信息界面的css*/
+.infoBody{
+    width: 700px;
+    margin-left: 30%;
+    margin-top: 20px;
+    position: relative;
+    height: auto;
+    background-color: #FFFFFF;
+    border: 1px solid #cccccc;
+}
+
+.infoWord1 {
+    font-size: 25px;
+    letter-spacing: 2px;
+    margin:15px 0 45px;
+}
+.infoWord2 {
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin:15px 0 45px;
+}
